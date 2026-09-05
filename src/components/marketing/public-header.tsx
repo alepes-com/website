@@ -2,30 +2,27 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Wordmark } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "Product", href: "/#product" },
-  { label: "How It Works", href: "/#how-it-works" },
-  { label: "Security", href: "/#security" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "How it works", href: "/#how-it-works" },
+  { label: "Formation", href: "/#formation" },
+  { label: "Shadow Mode", href: "/#shadow-mode" },
+  { label: "Preview", href: "/#preview" },
 ];
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  // avoid hydration mismatch
+  useEffect(() => setMounted(true), []);
   return (
     <button
       aria-label="Toggle theme"
-      onClick={() => {
-        setMounted(true);
-        setTheme(resolvedTheme === "dark" ? "light" : "dark");
-      }}
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
     >
       {mounted && resolvedTheme === "dark" ? (
@@ -61,11 +58,8 @@ export function PublicHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <Button variant="ghost" size="sm" render={<Link href="/login" />}>
-            Sign in
-          </Button>
-          <Button size="sm" render={<Link href="/signup" />}>
-            Get started
+          <Button size="sm" render={<Link href="/#preview" />}>
+            Explore preview
           </Button>
         </div>
 
@@ -101,11 +95,8 @@ export function PublicHeader() {
                 </Link>
               ))}
               <div className="mt-2 flex flex-col gap-2 border-t border-border/60 pt-3">
-                <Button variant="outline" render={<Link href="/login" onClick={() => setOpen(false)} />}>
-                  Sign in
-                </Button>
-                <Button render={<Link href="/signup" onClick={() => setOpen(false)} />}>
-                  Get started
+                <Button render={<Link href="/#preview" onClick={() => setOpen(false)} />}>
+                  Explore preview
                 </Button>
               </div>
             </nav>

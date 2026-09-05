@@ -30,17 +30,22 @@ export const metadata: Metadata = {
     template: "%s · Alepes",
   },
   description:
-    "Alepes automates how new cash flows into your portfolio. Connect your accounts, set your rules, and stay in formation — without unnecessary selling.",
-  keywords: [
-    "financial automation",
-    "portfolio rebalancing",
-    "cash flow investing",
-    "rules-based investing",
-    "contribution based rebalancing",
-  ],
+    "Alepes automates how new money flows into your portfolio — rules-based capital allocation with every decision explained.",
   metadataBase: new URL("https://alepes.com"),
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
+  appleWebApp: {
+    title: "Alepes",
+    statusBarStyle: "default",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   openGraph: {
     title: "Alepes — Your money, moving together.",
@@ -49,6 +54,14 @@ export const metadata: Metadata = {
     url: "https://alepes.com",
     siteName: "Alepes",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alepes — Your money, moving together.",
+    description:
+      "Rules-based capital allocation, with every decision explained.",
+    images: ["/og.png"],
   },
 };
 
