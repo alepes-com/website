@@ -1,19 +1,15 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  Link2,
-  Layers,
-  SlidersHorizontal,
-  Focus,
-  ShieldCheck,
-  Lock,
-  FileText,
-  PauseCircle,
-  CloudOff,
-  TrendingDown,
-  Sparkles,
+  ArrowDown,
   Check,
   Eye,
+  Scale,
+  ShieldCheck,
+  Target,
+  Waves,
+  Braces,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -34,7 +30,7 @@ export default function LandingPage() {
           <div>
             <Badge variant="outline" className="gap-1.5 text-muted-foreground">
               <Sparkles className="h-3.5 w-3.5 text-brand" />
-              Cash-flow automation for long-term investors
+              Rules-based capital allocation
             </Badge>
             <h1 className="mt-5 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
               Your money,
@@ -42,12 +38,16 @@ export default function LandingPage() {
               moving together.
             </h1>
             <p className="mt-5 max-w-md text-lg leading-relaxed text-muted-foreground">
-              Alepes automatically directs new cash toward the investments that
-              need it most — according to rules you control.
+              Alepes helps you define how new money should flow into your
+              portfolio, then directs contributions toward the holdings that need
+              them most.
+            </p>
+            <p className="mt-3 text-sm font-medium text-foreground/70">
+              Rules-based capital allocation, with every decision explained.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button size="lg" render={<Link href="/signup" />}>
-                Build your school
+              <Button size="lg" render={<Link href="/#preview" />}>
+                Explore the preview
                 <ArrowRight className="h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline" render={<Link href="/#how-it-works" />}>
@@ -55,14 +55,15 @@ export default function LandingPage() {
               </Button>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">
-              Start in Shadow Mode — test everything before any money moves.
+              Preview only — live transfers and live brokerage execution are not
+              currently available.
             </p>
           </div>
           <HeroFlow />
         </div>
       </section>
 
-      {/* ============ HOW IT WORKS ============ */}
+      {/* ============ FLOW / HOW IT WORKS ============ */}
       <section id="how-it-works" className="border-t border-border/60">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <div className="max-w-2xl">
@@ -70,204 +71,73 @@ export default function LandingPage() {
               How it works
             </p>
             <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              From cash flow to formation — in four steps.
+              From cash flow to formation.
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: Link2,
-                step: "01",
-                title: "Connect your accounts",
-                body: "Link your checking account and brokerage. Credentials stay with trusted financial-data providers — never stored by Alepes.",
-              },
-              {
-                icon: Layers,
-                step: "02",
-                title: "Build your school",
-                body: "Choose the stocks and ETFs you want, and assign target percentages. Your target is your formation.",
-              },
-              {
-                icon: SlidersHorizontal,
-                step: "03",
-                title: "Create your rules",
-                body: "Decide when money moves: how much to invest, what to keep in reserve, and how much any single deposit can send.",
-              },
-              {
-                icon: Focus,
-                step: "04",
-                title: "Stay in formation",
-                body: "Alepes directs each contribution toward underweight holdings — rebalancing with new money, not selling.",
-              },
-            ].map((s) => (
-              <div
-                key={s.step}
-                className="group relative rounded-2xl border border-border bg-card p-6 transition-colors hover:border-brand/40"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-brand">
-                    <s.icon className="h-5 w-5" />
-                  </span>
-                  <span className="font-mono text-sm text-muted-foreground/60">
-                    {s.step}
-                  </span>
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {s.body}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Rule example strip */}
-          <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
-            {[
-              ["WHEN", "Paycheck deposit arrives"],
-              ["IF", "Checking remains above $2,000"],
-              ["THEN", "Invest 20%"],
-              ["MAX", "$750 per deposit"],
-            ].map(([label, value]) => (
-              <div key={label} className="bg-card p-5">
-                <span className="font-mono text-xs uppercase tracking-wider text-brand">
-                  {label}
-                </span>
-                <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ DIFFERENTIATOR ============ */}
-      <section id="product" className="border-t border-border/60 bg-secondary/40">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-          <div className="grid gap-12 md:grid-cols-2 md:items-center">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-wider text-brand">
-                The Alepes difference
-              </p>
-              <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-                Rebalance with new money — not unnecessary selling.
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-                Traditional rebalancing means selling winners to buy losers.
-                Alepes instead routes each new contribution toward the holdings
-                that are most underweight — quietly reducing drift over time
-                without triggering taxable sales.
-              </p>
-              <ul className="mt-6 space-y-3">
-                {[
-                  "Contribution-only rebalancing — no forced selling",
-                  "Underweight holdings get priority on every deposit",
-                  "Respects your allocation bands automatically",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-3 text-sm">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-positive" />
-                    <span className="text-muted-foreground">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Drift table */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-lg shadow-brand/5">
-              <div className="flex items-center justify-between">
+          <div className="mt-12 grid gap-8 md:grid-cols-[1fr_1.2fr] md:items-start">
+            <FlowSteps />
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <div className="mb-4 flex items-center gap-2">
+                <Scale className="h-4 w-4 text-brand" />
                 <h3 className="text-sm font-medium text-foreground">
-                  Current formation
+                  Two policies, kept separate
                 </h3>
-                <Badge variant="outline" className="gap-1 text-warning">
-                  <TrendingDown className="h-3 w-3" />
-                  4.8% drift
-                </Badge>
               </div>
-              <table className="mt-5 w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left text-xs uppercase tracking-wider text-muted-foreground">
-                    <th className="pb-2 font-medium">Symbol</th>
-                    <th className="pb-2 text-right font-medium">Target</th>
-                    <th className="pb-2 text-right font-medium">Current</th>
-                    <th className="pb-2 text-right font-medium">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/60">
-                  {[
-                    { s: "AAPL", t: "20%", c: "24.8%", a: "Hold", tone: "muted" },
-                    { s: "MSFT", t: "20%", c: "16.9%", a: "Buy", tone: "positive" },
-                    { s: "NVDA", t: "10%", c: "7.8%", a: "Buy", tone: "positive" },
-                    { s: "GOOGL", t: "15%", c: "15.4%", a: "Hold", tone: "muted" },
-                  ].map((r) => (
-                    <tr key={r.s}>
-                      <td className="py-3 font-mono font-medium tabular">{r.s}</td>
-                      <td className="py-3 text-right tabular text-muted-foreground">
-                        {r.t}
-                      </td>
-                      <td className="py-3 text-right tabular">{r.c}</td>
-                      <td className="py-3 text-right">
-                        <span
-                          className={
-                            r.tone === "positive"
-                              ? "font-medium text-positive"
-                              : "text-muted-foreground"
-                          }
-                        >
-                          {r.a}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <p className="mt-4 rounded-lg bg-secondary/60 p-3 text-xs leading-relaxed text-muted-foreground">
-                Underweight holdings (MSFT, NVDA) receive the next contribution
-                — the rest stay put.
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Your <strong className="text-foreground">cash-flow policy</strong>{" "}
+                decides <em>whether and how much</em> to deploy from new money —
+                triggers, reserves, and caps. Your{" "}
+                <strong className="text-foreground">investment policy</strong>{" "}
+                decides <em>where it goes</em>: the target allocation and bands
+                that define your formation. Keeping them separate is what makes
+                every decision explainable.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============ RULES ENGINE ============ */}
-      <section id="rules" className="border-t border-border/60">
+      {/* ============ RULES ============ */}
+      <section id="rules" className="border-t border-border/60 bg-secondary/40">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <div className="max-w-2xl">
             <p className="text-sm font-medium uppercase tracking-wider text-brand">
-              Rules engine
+              Cash-flow rules
             </p>
             <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Your automation, spelled out in plain rules.
+              Your automation, in rules you author.
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              No code. No guesswork. Just clear conditions for when your money
-              moves.
-            </p>
           </div>
 
           <div className="mt-12 grid gap-5 md:grid-cols-2">
-            <RuleCard
-              name="Paycheck Rule"
-              tone="brand"
-              rows={[
-                ["Trigger", "Payroll deposit detected"],
-                ["Investment rate", "20%"],
-                ["Minimum checking balance", "$2,000"],
-                ["Maximum per deposit", "$750"],
-                ["Monthly maximum", "$2,000"],
-              ]}
-            />
-            <RuleCard
-              name="Bonus Rule"
-              tone="flow"
-              rows={[
-                ["Trigger", "Bonus deposit > $1,000"],
-                ["Invest", "50%"],
-                ["Reserve", "$500"],
-                ["Maximum per deposit", "$1,000"],
-              ]}
-            />
+            <RuleBuilder />
+          </div>
+        </div>
+      </section>
+
+      {/* ============ FORMATION ============ */}
+      <section id="formation" className="border-t border-border/60">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+          <div className="grid gap-12 md:grid-cols-2 md:items-center">
+            <div>
+              <div className="flex items-center gap-2">
+                <Target className="h-4 w-4 text-brand" />
+                <p className="text-sm font-medium uppercase tracking-wider text-brand">
+                  Formation
+                </p>
+              </div>
+              <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                Stay in formation with new money.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                <strong className="text-foreground">Formation</strong> is how
+                close your portfolio is to its target allocation. Holdings drift
+                over time; Alepes uses each new contribution to move the school
+                back toward formation — underweight first, without forced selling.
+              </p>
+            </div>
+            <FormationTable />
           </div>
         </div>
       </section>
@@ -277,200 +147,88 @@ export default function LandingPage() {
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
             <div>
-              <Badge variant="outline" className="gap-1.5 text-muted-foreground">
-                <Eye className="h-3.5 w-3.5 text-brand" />
-                Shadow Mode
-              </Badge>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-                Test the whole system before it moves a dollar.
+              <div className="flex items-center gap-2">
+                <Eye className="h-4 w-4 text-brand" />
+                <p className="text-sm font-medium uppercase tracking-wider text-brand">
+                  Shadow Mode
+                </p>
+              </div>
+              <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                See the decision before anything moves.
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-                Shadow Mode watches your accounts, evaluates your rules, and
-                shows exactly what it <em>would</em> do — without moving any
-                money. When you&apos;re confident, flip it on.
+                Shadow Mode evaluates your rules and shows exactly what{" "}
+                <em>would</em> happen — a full plan, with nothing executed.
               </p>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {[
-                  ["4", "Deposits detected"],
-                  ["$1,740", "Would have invested"],
-                  ["1", "Transfers skipped"],
-                  ["38%", "Drift reduced"],
-                ].map(([v, l]) => (
-                  <div key={l} className="rounded-xl border border-border bg-card p-4">
-                    <p className="text-2xl font-semibold tabular text-foreground">
-                      {v}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">{l}</p>
-                  </div>
-                ))}
-              </div>
-              <Button size="lg" className="mt-8" render={<Link href="/signup" />}>
-                Try Shadow Mode
-              </Button>
-            </div>
-
-            {/* Shadow simulation card */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-lg shadow-brand/5">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-foreground">
-                  Shadow simulation
-                </h3>
-                <Badge className="bg-negative/10 text-negative">No money moved</Badge>
-              </div>
-
-              <div className="mt-5 space-y-1.5 text-sm">
-                <Row label="Deposit detected" value="$2,100" />
-                <Row label="Would invest" value="$420" />
-              </div>
-
-              <div className="mt-4 border-t border-border pt-4">
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Proposed allocation
-                </p>
-                <div className="mt-3 space-y-2">
-                  {[
-                    ["MSFT", "$155"],
-                    ["GOOGL", "$117"],
-                    ["NVDA", "$86"],
-                    ["V", "$62"],
-                  ].map(([s, v]) => (
-                    <div
-                      key={s}
-                      className="flex items-center justify-between rounded-lg bg-secondary/50 px-3 py-2"
-                    >
-                      <span className="font-mono text-sm font-medium">{s}</span>
-                      <span className="font-mono text-sm tabular text-muted-foreground">
-                        {v}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+              <div className="mt-6">
+                <Badge className="bg-negative/10 text-negative">
+                  Simulation only — no money moved
+                </Badge>
               </div>
             </div>
+            <ShadowTrace />
           </div>
         </div>
       </section>
 
-      {/* ============ SECURITY ============ */}
-      <section id="security" className="border-t border-border/60">
+      {/* ============ EXPLAINABILITY ============ */}
+      <section id="explainability" className="border-t border-border/60">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <div className="max-w-2xl">
             <p className="text-sm font-medium uppercase tracking-wider text-brand">
-              Security
+              Explainability
             </p>
             <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Built with a security-first architecture.
+              Every decision, traceable.
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Automation is powerful — so it has to be safe. Alepes is designed
-              so you stay in control of every dollar.
-            </p>
           </div>
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                icon: CloudOff,
-                title: "Credentials never stored here",
-                body: "Your bank credentials are never stored directly by Alepes. Connections route through trusted financial-data providers.",
-              },
-              {
-                icon: Lock,
-                title: "Encrypted in transit and at rest",
-                body: "All data is protected with encryption in transit and at rest, following industry best practices.",
-              },
-              {
-                icon: PauseCircle,
-                title: "Automation you can pause",
-                body: "A global kill-switch pauses all automation instantly. You are always one tap from full control.",
-              },
-              {
-                icon: SlidersHorizontal,
-                title: "You define the rules",
-                body: "Nothing moves without a rule you wrote. Amounts, reserves, and limits are yours to set.",
-              },
-              {
-                icon: FileText,
-                title: "Every action explained",
-                body: "An immutable audit log records why each decision was made — traceable at any time.",
-              },
-              {
-                icon: ShieldCheck,
-                title: "Contribution-only by default",
-                body: "Alepes rebalances with new money first. It never sells holdings unless you explicitly allow it.",
-              },
-            ].map((f) => (
-              <div key={f.title} className="rounded-2xl border border-border bg-card p-6">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-brand">
-                  <f.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-4 text-base font-semibold text-foreground">
-                  {f.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {f.body}
-                </p>
-              </div>
-            ))}
-          </div>
+          <ExplainPanel />
         </div>
       </section>
 
-      {/* ============ PRICING ============ */}
-      <section id="pricing" className="border-t border-border/60 bg-secondary/40">
+      {/* ============ PRODUCT PREVIEW ============ */}
+      <section id="preview" className="border-t border-border/60 bg-secondary/40">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-          <div className="mx-auto max-w-2xl text-center">
+          <div className="max-w-2xl">
             <p className="text-sm font-medium uppercase tracking-wider text-brand">
-              Pricing
+              Product preview
             </p>
             <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Start free. Upgrade when you automate.
+              A look at Alepes.
             </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Static mock views of the product. No live connections, no real
+              accounts.
+            </p>
           </div>
+          <PreviewTabs />
+        </div>
+      </section>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            <PricingCard
-              name="Free"
-              price="$0"
-              tagline="Explore and simulate"
-              features={[
-                "One portfolio",
-                "Shadow Mode",
-                "Manual simulations",
-                "Portfolio drift tracking",
-              ]}
-              cta="Start free"
+      {/* ============ SAFETY / BOUNDARY ============ */}
+      <section id="safety" className="border-t border-border/60">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+          <div className="grid gap-8 md:grid-cols-3">
+            <BoundaryCard
+              icon={ShieldCheck}
+              title="Built for visibility before automation."
+              body="Alepes is being developed as a rules-based capital-allocation system. The preview shows product concepts and simulated behavior; live financial execution is not represented here."
             />
-            <PricingCard
-              name="Plus"
-              price="$8"
-              tagline="Put automation to work"
-              featured
-              features={[
-                "Automated deposit rules",
-                "Unlimited simulations",
-                "Multiple rules",
-                "Advanced portfolio analytics",
-              ]}
-              cta="Start with Plus"
+            <BoundaryCard
+              icon={Braces}
+              title="You define the rules and targets."
+              body="Nothing moves without a rule and an allocation you authored. Reserves, caps, and target percentages are yours to set."
             />
-            <PricingCard
-              name="Pro"
-              price="$15"
-              tagline="For serious builders"
-              features={[
-                "Multiple portfolios",
-                "Advanced cash-flow routing",
-                "Custom allocation bands",
-                "Priority automation",
-                "Detailed reporting",
-              ]}
-              cta="Start with Pro"
+            <BoundaryCard
+              icon={Waves}
+              title="Contribution-based by default."
+              body="Alepes directs new money toward underweight holdings. It does not sell existing holdings unless you explicitly allow it."
             />
           </div>
-          <p className="mt-8 text-center text-xs text-muted-foreground">
-            Prices shown are placeholder for this preview and may change.
+          <p className="mt-8 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+            This preview is for informational purposes only and is not a
+            recommendation to buy or sell any security. Alepes does not currently
+            offer live brokerage execution or funds transfer.
           </p>
         </div>
       </section>
@@ -483,19 +241,15 @@ export default function LandingPage() {
             <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[600px] -translate-x-1/2 rounded-full bg-brand/15 blur-3xl" />
             <div className="relative">
               <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-                Bring your money back into formation.
+                Build your formation.
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-                Connect your accounts, build your school, and let your new cash
-                do the rebalancing for you.
+                Define how new money should move before it ever does.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button size="lg" render={<Link href="/signup" />}>
-                  Build your school
+                <Button size="lg" render={<Link href="/#preview" />}>
+                  Explore the preview
                   <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button size="lg" variant="outline" render={<Link href="/login" />}>
-                  Sign in
                 </Button>
               </div>
             </div>
@@ -508,51 +262,163 @@ export default function LandingPage() {
   );
 }
 
-function Row({ label, value }: { label: string; value: string }) {
+/* ---------- static mock sections ---------- */
+
+function FlowSteps() {
+  const steps = [
+    "Qualifying deposit detected",
+    "Cash-flow rule evaluated",
+    "Reserve preserved",
+    "Deployable amount calculated",
+    "Portfolio contribution allocated",
+    "Shadow plan explained",
+  ];
   return (
-    <div className="flex items-center justify-between">
-      <span className="text-muted-foreground">{label}</span>
-      <span className="font-medium tabular text-foreground">{value}</span>
-    </div>
+    <ol className="space-y-0">
+      {steps.map((s, i) => (
+        <li key={s} className="flex items-start gap-3">
+          <div className="flex flex-col items-center">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full border border-brand/30 bg-brand/10 text-xs font-semibold text-brand">
+              {i + 1}
+            </span>
+            {i < steps.length - 1 && (
+              <ArrowDown className="h-5 w-5 text-border" />
+            )}
+          </div>
+          <span className="pt-1 text-sm font-medium text-foreground">{s}</span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
-function RuleCard({
-  name,
-  tone,
-  rows,
-}: {
-  name: string;
-  tone: "brand" | "flow";
-  rows: [string, string][];
-}) {
+function RuleBuilder() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card">
-      <div
-        className={`flex items-center justify-between border-b border-border px-6 py-4 ${
-          tone === "brand" ? "bg-brand/[0.06]" : "bg-flow/[0.08]"
-        }`}
-      >
-        <div className="flex items-center gap-3">
-          <span
-            className={`inline-flex h-8 w-8 items-center justify-center rounded-lg ${
-              tone === "brand" ? "bg-brand/15 text-brand" : "bg-flow/15 text-flow"
-            }`}
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-          </span>
-          <h3 className="text-base font-semibold text-foreground">{name}</h3>
-        </div>
+    <div className="overflow-hidden rounded-2xl border border-border bg-card md:col-span-2">
+      <div className="flex items-center justify-between border-b border-border px-6 py-4 bg-brand/[0.06]">
+        <h3 className="text-base font-semibold text-foreground">
+          Example rule — authored by you
+        </h3>
         <Badge variant="outline" className="gap-1 text-positive">
           <span className="h-1.5 w-1.5 rounded-full bg-positive" />
           Active
         </Badge>
       </div>
-      <dl className="divide-y divide-border/60 px-6">
+      <div className="grid gap-px overflow-hidden bg-border sm:grid-cols-3">
+        <div className="bg-card p-6">
+          <p className="font-mono text-xs uppercase tracking-wider text-brand">WHEN</p>
+          <p className="mt-2 text-sm font-medium text-foreground">
+            a qualifying deposit is detected
+          </p>
+        </div>
+        <div className="bg-card p-6">
+          <p className="font-mono text-xs uppercase tracking-wider text-brand">IF</p>
+          <p className="mt-2 text-sm font-medium text-foreground">
+            checking remains above $5,000
+          </p>
+        </div>
+        <div className="bg-card p-6">
+          <p className="font-mono text-xs uppercase tracking-wider text-brand">THEN</p>
+          <p className="mt-2 text-sm font-medium text-foreground">
+            invest 40% of the deployable amount
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FormationTable() {
+  const rows = [
+    { sym: "VTI", target: "50%", current: "44%", action: "Buy", tone: "positive" },
+    { sym: "AAPL", target: "25%", current: "30%", action: "Hold", tone: "muted" },
+    { sym: "VXUS", target: "25%", current: "26%", action: "Hold", tone: "muted" },
+  ];
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-lg shadow-brand/5">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-medium text-foreground">Formation check</h3>
+        <Badge variant="outline" className="gap-1 text-warning">drifted</Badge>
+      </div>
+      <table className="mt-5 w-full text-sm">
+        <thead>
+          <tr className="border-b border-border text-left text-xs uppercase tracking-wider text-muted-foreground">
+            <th className="pb-2 font-medium">Symbol</th>
+            <th className="pb-2 text-right font-medium">Target</th>
+            <th className="pb-2 text-right font-medium">Current</th>
+            <th className="pb-2 text-right font-medium">Action</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-border/60">
+          {rows.map((r) => (
+            <tr key={r.sym}>
+              <td className="py-3 font-mono font-medium">{r.sym}</td>
+              <td className="py-3 text-right tabular text-muted-foreground">{r.target}</td>
+              <td className="py-3 text-right tabular">{r.current}</td>
+              <td className="py-3 text-right">
+                <span className={r.tone === "positive" ? "font-medium text-positive" : "text-muted-foreground"}>
+                  {r.action}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p className="mt-4 rounded-lg bg-secondary/60 p-3 text-xs leading-relaxed text-muted-foreground">
+        New contribution → directed primarily toward VTI, the most underweight
+        holding.
+      </p>
+    </div>
+  );
+}
+
+function ShadowTrace() {
+  const rows = [
+    ["Deposit detected", "$1,250"],
+    ["Reserve preserved", "$5,000"],
+    ["Rule matched", "Invest 40%"],
+    ["Deployable", "$500"],
+    ["Formation checked", "—"],
+    ["Allocation calculated", "—"],
+    ["Shadow plan created", "—"],
+  ];
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-lg shadow-brand/5">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-medium text-foreground">Shadow trace</h3>
+        <Badge className="bg-negative/10 text-negative">No money moved</Badge>
+      </div>
+      <div className="mt-5 divide-y divide-border/60">
         {rows.map(([k, v]) => (
-          <div key={k} className="flex items-center justify-between py-3.5 text-sm">
-            <dt className="text-muted-foreground">{k}</dt>
-            <dd className="font-medium tabular text-foreground">{v}</dd>
+          <div key={k} className="flex items-center justify-between py-2.5 text-sm">
+            <span className="text-muted-foreground">{k}</span>
+            <span className="font-medium tabular text-foreground">{v}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ExplainPanel() {
+  const qa = [
+    ["What happened?", "A qualifying deposit of $1,250 was detected."],
+    ["Which rule matched?", "“Invest 40%” above the $5,000 reserve."],
+    ["Why was this amount deployable?", "$500 — 40% of the deposit, after the reserve."],
+    ["Which holding was underweight?", "VTI, at 44% vs. its 50% target."],
+    ["Why did it receive this allocation?", "It had the largest actionable gap."],
+    ["What would happen next?", "The plan is held for your review — nothing executes."],
+  ];
+  return (
+    <div className="mt-10 rounded-2xl border border-border bg-card">
+      <div className="border-b border-border px-6 py-4">
+        <h3 className="text-sm font-medium text-foreground">Decision audit</h3>
+      </div>
+      <dl className="divide-y divide-border/60 px-6">
+        {qa.map(([q, a]) => (
+          <div key={q} className="grid gap-1 py-4 sm:grid-cols-[220px_1fr]">
+            <dt className="text-sm text-muted-foreground">{q}</dt>
+            <dd className="text-sm font-medium text-foreground">{a}</dd>
           </div>
         ))}
       </dl>
@@ -560,58 +426,90 @@ function RuleCard({
   );
 }
 
-function PricingCard({
-  name,
-  price,
-  tagline,
-  features,
-  cta,
-  featured = false,
+function PreviewTabs() {
+  const tabs = [
+    {
+      label: "Overview",
+      body: (
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Stat label="Portfolio value" value="$24,812" />
+          <Stat label="Formation" value="94.2" suffix=" / 100" />
+          <Stat label="Next contribution" value="Awaiting" />
+        </div>
+      ),
+    },
+    {
+      label: "Formation",
+      body: <FormationTable />,
+    },
+    {
+      label: "Rules",
+      body: <RuleBuilder />,
+    },
+    {
+      label: "Shadow Mode",
+      body: <ShadowTrace />,
+    },
+    {
+      label: "Activity",
+      body: (
+        <ul className="space-y-2">
+          {["Deposit detected — $1,250", "Rule matched — Invest 40%", "Reserve preserved — $5,000", "Shadow plan created"].map(
+            (s) => (
+              <li key={s} className="rounded-lg bg-secondary/50 px-4 py-3 text-sm text-foreground">
+                {s}
+              </li>
+            )
+          )}
+        </ul>
+      ),
+    },
+  ];
+  return (
+    <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="flex gap-1 overflow-x-auto border-b border-border px-3 py-2">
+        {tabs.map((t) => (
+          <span
+            key={t.label}
+            className="whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground first:bg-brand/10 first:text-brand"
+          >
+            {t.label}
+          </span>
+        ))}
+      </div>
+      <div className="p-6">{tabs[1].body}</div>
+    </div>
+  );
+}
+
+function Stat({ label, value, suffix }: { label: string; value: string; suffix?: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-4">
+      <p className="text-sm text-muted-foreground">{label}</p>
+      <p className="mt-1 text-2xl font-semibold tabular text-foreground">
+        {value}
+        {suffix && <span className="text-sm font-normal text-muted-foreground">{suffix}</span>}
+      </p>
+    </div>
+  );
+}
+
+function BoundaryCard({
+  icon: Icon,
+  title,
+  body,
 }: {
-  name: string;
-  price: string;
-  tagline: string;
-  features: string[];
-  cta: string;
-  featured?: boolean;
+  icon: typeof ShieldCheck;
+  title: string;
+  body: string;
 }) {
   return (
-    <div
-      className={`relative rounded-2xl border p-6 ${
-        featured
-          ? "border-brand/50 bg-card shadow-xl shadow-brand/10"
-          : "border-border bg-card"
-      }`}
-    >
-      {featured && (
-        <Badge className="absolute -top-3 left-6 bg-brand text-brand-foreground">
-          Most popular
-        </Badge>
-      )}
-      <h3 className="text-lg font-semibold text-foreground">{name}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{tagline}</p>
-      <div className="mt-4 flex items-baseline gap-1">
-        <span className="text-4xl font-semibold tabular text-foreground">
-          {price}
-        </span>
-        <span className="text-sm text-muted-foreground">/month</span>
-      </div>
-      <ul className="mt-6 space-y-3">
-        {features.map((f) => (
-          <li key={f} className="flex items-start gap-3 text-sm">
-            <Check className="mt-0.5 h-4 w-4 shrink-0 text-positive" />
-            <span className="text-muted-foreground">{f}</span>
-          </li>
-        ))}
-      </ul>
-      <Button
-        className="mt-8 w-full"
-        variant={featured ? "default" : "outline"}
-        size="lg"
-        render={<Link href="/signup" />}
-      >
-        {cta}
-      </Button>
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-brand">
+        <Icon className="h-5 w-5" />
+      </span>
+      <h3 className="mt-4 text-base font-semibold text-foreground">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
     </div>
   );
 }

@@ -1,146 +1,51 @@
-# Alepes
+# Alepes — product-preview website
 
-**Your money, moving together.**
+> This repository contains the public Alepes product-preview website at
+> [https://alepes.com](https://alepes.com).
+>
+> The Alepes product/platform repository is
+> [https://github.com/alepes-com/alepes](https://github.com/alepes-com/alepes).
 
-Alepes is a rules-based cash-flow-to-investment engine. Connect your bank and
-brokerage, define rules for how incoming cash should be allocated, and let new
-money rebalance your portfolio — contribution by contribution, without
-unnecessary selling.
+**Your money, moving together.** This is the static marketing/product-preview
+site for Alepes — a rules-based personal capital-allocation system. It explains
+the product concept (cash-flow rules, reserves, formation, contribution
+rebalancing, Shadow Mode, explainability) and shows mock product screens.
 
-This repository is the **frontend MVP** for `alepes.com`. It uses mock data and
-simulated integrations; no real bank or brokerage is connected.
+It is not the product application and performs no financial work.
 
-> Alepes provides automation infrastructure, not investment advice. You define
-> the investment universe, target allocations, and rules. Alepes executes them.
+## Stack
 
----
+- **Bun 1.4** (pinned) — the only toolchain; no npm/pnpm
+- Next.js 16 (App Router) with **static export** (`output: "export"`)
+- TypeScript, React, Tailwind CSS v4
+- shadcn/ui (Base UI), lucide-react, framer-motion
+- Oxlint (lint), Vitest (tests)
 
-## The metaphor
-
-- **individual fish** → individual investments
-- **the school** → the portfolio
-- **flow** → incoming cash
-- **formation** → target allocation health
-- **drift** → holdings moving out of formation
-- **rebalancing** → bringing the school back into formation (with new money)
-
----
-
-## What's in this MVP
-
-- **Public landing page** — hero with animated flow visualization, how-it-works,
-  contribution-based rebalancing explainer, rules engine, Shadow Mode, security,
-  and pricing.
-- **Authentication UI** — sign in / sign up (mock, no backend).
-- **Authenticated dashboard** — overview (portfolio value, formation score,
-  cash-flow, recent automation, safety strip).
-- **Portfolio builder** — "Build your school": search, add/remove, target
-  percentages, allocation bands, drag-to-reorder, live donut, 100% validation.
-- **Rules builder** — visual WHEN/IF/THEN rule creation with a live
-  human-readable summary.
-- **Simulation** — "What if?" deposit simulation with full cash-flow breakdown
-  and per-holding explanation.
-- **Activity** — filterable, immutable audit timeline.
-- **Settings** — safety controls, connected accounts, strategy history,
-  appearance, danger zone.
-- **Explainability** — every automated decision is explained in a drawer.
-- **Dark / light mode**, fully responsive.
-
----
-
-## Tech stack
-
-- [Next.js](https://nextjs.org) 16 (App Router, TypeScript)
-- [React](https://react.dev) 19
-- [Tailwind CSS](https://tailwindcss.com) v4
-- [shadcn/ui](https://ui.shadcn.com) (Base UI primitives)
-- [Lucide](https://lucide.dev) icons
-- [framer-motion](https://www.framer.com/motion/) for micro-animations
-- [Vitest](https://vitest.dev) for unit tests
-
-## Getting started
+## Local setup
 
 ```bash
-# install dependencies
-npm install
+bun install --frozen-lockfile   # install dependencies
+bun run dev                     # http://localhost:3000
 
-# start the dev server
-npm run dev
-# → http://localhost:3000
-
-# production build
-npm run build && npm start
-
-# run unit tests
-npm test
-
-# lint
-npm run lint
+# validation
+bunx tsc --noEmit               # typecheck
+bunx oxlint                     # lint
+bun run test                    # tests
+bun run build                   # static export → out/
 ```
 
----
+`bun run build` emits `out/` with `out/index.html`.
 
-## Project structure
+## Deployment
 
-```
-src/
-  app/
-    (auth)/          # login + signup
-    (app)/           # authenticated app (overview, portfolio, rules,
-                     #   activity, simulate, settings)
-    layout.tsx       # root layout, fonts, theme, metadata
-    page.tsx         # public landing page
-    globals.css      # design tokens, Tailwind v4 theme
-  components/
-    brand/           # logo, wordmark
-    marketing/       # header, footer, hero-flow, sections
-    app/             # app shell, donut, primitives, explain-drawer
-    auth/            # auth shell
-    ui/              # shadcn/ui primitives
-  lib/
-    domain/          # pure, testable engine logic
-      types.ts       # domain types
-      allocation.ts  # contribution-based allocation engine
-      rules.ts       # rules engine
-      simulation.ts  # simulation + explainability
-    providers/       # bank/brokerage abstraction layer (+ mocks)
-    data/            # realistic mock account data
-    format.ts        # currency / percent / time formatting
-    utils.ts         # cn()
-```
+Static export on **Cloudflare Pages**:
 
-### Domain layer (the important part)
+- production branch: `main`
+- build command: `bun run build`
+- output directory: `out`
 
-The financial logic is **pure and deterministic**, with no dependency on
-provider APIs or the network. This is what makes it unit-testable and lets real
-integrations drop in later:
+## Repository boundary
 
-| Module | Responsibility |
-| --- | --- |
-| `allocation.ts` | `allocateContribution` — routes a dollar amount to the most underweight holdings, respecting bands, fractional shares, minimum trade size, and per-holding caps. |
-| `rules.ts` | `evaluateRule` — matches a deposit to a rule and computes the investment amount with reserve, per-deposit, and monthly caps, recording every decision. |
-| `simulation.ts` | `runSimulation` — ties deposit → rules → allocation together; `explainAllocation` generates human explanations. |
-
-The allocation engine supports:
-1. target allocations
-2. current portfolio values
-3. incoming investment amount
-4. contribution-based drift correction
-5. allocation bands
-6. fractional shares
-7. minimum trade size
-
-### Provider abstraction
-
-`src/lib/providers/types.ts` defines `BankProvider`, `BrokerageProvider`,
-`DepositDetector`, and a `ProviderRegistry`. The MVP ships `Mock` implementations
-(`providers/mock.ts`). Real integrations (e.g. Plaid for banking, a brokerage
-API) implement the same interfaces — no view code changes required.
-
----
-
-## Notes on compliance language
-
-This is a preview. It intentionally avoids unsupported claims (FDIC insurance,
-specific certifications) and uses language like "built with a security-first
-architecture." No real money is moved.
+This repository is the public preview surface only. Financial domain models,
+engines, provider integrations, persistence, and workflows live in
+[`alepes-com/alepes`](https://github.com/alepes-com/alepes).

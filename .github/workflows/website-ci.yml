@@ -1,0 +1,42 @@
+# Generic website CI: runs the canonical validation ladder on every PR and push
+# to main. Covers ordinary preview-site changes without path-filter holes.
+# (No Temporal / PostgreSQL / DuckDB / Plaid jobs — those belong in alepes-com/alepes.)
+
+name: website-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    name: validate (bun 1.4)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.0"
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bunx tsc --noEmit
+
+      - name: Lint
+        run: bunx oxlint
+
+      - name: Test
+        run: bun run test
+
+      - name: Build (static export)
+        run: bun run build
+
+      - name: Verify static output
+        run: test -f out/index.html
+
+      - name: Whitespace check
+        run: git diff --check
