@@ -5,5 +5,11 @@
   "assets": {
     "directory": "./out",
     "not_found_handling": "404-page"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "alepes.com",
+      "custom_domain": true
+    }
+  ]
 }
