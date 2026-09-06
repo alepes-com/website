@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "deploy": "wrangler deploy",
+    "deploy:www": "wrangler deploy --config infra/www-redirect/wrangler.jsonc",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
