@@ -141,13 +141,13 @@ export function ModelsSection() {
             A future Formation with models
           </h3>
           <div className="mt-4 overflow-x-auto">
-            <pre className="font-mono text-sm leading-relaxed text-foreground">
-{`Formation
-├─ portfolio-risk-v4        ← Formation model
-│
-├─ AAPL  → valuation-quality-v2
-├─ MSFT  → momentum-v1
-└─ VTI   → (no holding-specific model)`}
+            <pre className="font-mono text-[13px] leading-relaxed text-foreground sm:text-sm">
+{`Formation model
+  portfolio-risk-v4
+
+AAPL → valuation-quality-v2
+MSFT → momentum-v1
+VTI  → (no holding model)`}
             </pre>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
