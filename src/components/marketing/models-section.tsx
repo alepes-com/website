@@ -305,7 +305,7 @@ VTI  → (no holding model)`}
               safety policies.
             </p>
           </div>
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
             <div className="rounded-xl border border-border bg-card p-5">
               <h4 className="text-sm font-medium text-foreground">
                 Alepes-native deterministic models
@@ -320,23 +320,11 @@ VTI  → (no holding model)`}
                 Portfolio-model libraries
               </h4>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Proven portfolio-optimization libraries — such as{" "}
-                <span className="font-mono text-xs">PyPortfolioOpt</span> — may
-                one day provide Formation-wide models like minimum volatility,
-                maximum Sharpe, Black-Litterman, or hierarchical risk parity.
-                This is an example of a type of integration, not something
-                integrated today.
-              </p>
-            </div>
-            <div className="rounded-xl border border-border bg-card p-5">
-              <h4 className="text-sm font-medium text-foreground">
-                Future research and ML
-              </h4>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Frameworks such as <span className="font-mono text-xs">Qlib</span>{" "}
-                could eventually sit behind the Alepes model-runtime boundary for
-                research or ML models. This is a possible future direction, not a
-                current dependency.
+                Proven portfolio-optimization libraries may one day provide
+                Formation-wide models such as minimum volatility, maximum
+                Sharpe, Black-Litterman, or hierarchical risk parity. This is an
+                example of a type of integration, not something integrated
+                today.
               </p>
             </div>
           </div>
@@ -347,7 +335,7 @@ VTI  → (no holding model)`}
         </div>
 
         {/* Closing anchor */}
-        <div className="mt-12 flex items-start gap-2 rounded-2xl border border-border bg-card p-6">
+        <div className="mt-8 flex items-start gap-2 rounded-2xl border border-border bg-card p-6">
           <Scale className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand" />
           <p className="text-sm font-medium leading-relaxed text-foreground">
             Models produce opinions. Alepes decides what is allowed.
