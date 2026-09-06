@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "deploy": "wrangler deploy",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -56,6 +57,7 @@
     "oxlint": "^1.81.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "wrangler": "4.129.0"
   }
 }
