@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { PublicHeader } from "@/components/marketing/public-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { HeroFlow } from "@/components/marketing/hero-flow";
+import { ModelsSection } from "@/components/marketing/models-section";
 
 export default function LandingPage() {
   return (
@@ -184,6 +185,9 @@ export default function LandingPage() {
           <ExplainPanel />
         </div>
       </section>
+
+      {/* ============ MODELS (FUTURE CAPABILITY) ============ */}
+      <ModelsSection />
 
       {/* ============ PRODUCT PREVIEW ============ */}
       <section id="preview" className="border-t border-border/60 bg-secondary/40">
