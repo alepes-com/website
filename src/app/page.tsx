@@ -468,19 +468,25 @@ function PreviewTabs() {
       ),
     },
   ];
+  const activeTabIndex = 1;
+
   return (
     <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="flex gap-1 overflow-x-auto border-b border-border px-3 py-2">
-        {tabs.map((t) => (
+      <div className="flex flex-wrap gap-1 border-b border-border px-3 py-2">
+        {tabs.map((t, index) => (
           <span
             key={t.label}
-            className="whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground first:bg-brand/10 first:text-brand"
+            className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium ${
+              index === activeTabIndex
+                ? "bg-brand/10 text-brand"
+                : "text-muted-foreground"
+            }`}
           >
             {t.label}
           </span>
         ))}
       </div>
-      <div className="p-6">{tabs[1].body}</div>
+      <div className="p-6">{tabs[activeTabIndex].body}</div>
     </div>
   );
 }
