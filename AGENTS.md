@@ -54,8 +54,26 @@ git diff --check
 - `main` is production/releasable; production deploys from `main`
   (Cloudflare Pages, static export).
 - Normal work happens on short-lived branches (`feat/*`, `fix/*`, `chore/*`).
-- Branch → PR → CI (`website-ci`) → review → merge.
+- create branch → commit → push branch → PR → CI (`website-ci`) → review → merge.
 - Do not force-push `main`.
+
+### Solo-maintainer exception to review
+
+Alepes currently has a single maintainer with merge authority. Requiring a
+different-account approval in that state would add ceremony without increasing
+review quality, so the review step is relaxed **only** while a solo maintainer
+remains the sole authority. The author may merge a PR without an external
+approver, provided **every** one of the following holds:
+
+- all required CI checks pass on the exact head,
+- the full validation ladder passes,
+- a substantive self-review is completed and its material findings are
+  recorded on the PR,
+- no unresolved blocking review threads remain,
+- the PR is merged with a **normal merge commit** (never squash, never rebase).
+
+The moment a second maintainer with merge authority is available, external
+review becomes required again, and this exception ceases to apply.
 
 ## Hard rules
 
