@@ -52,7 +52,8 @@ git diff --check
 ## Workflow
 
 - `main` is production/releasable; production deploys from `main`
-  (Cloudflare Pages, static export).
+  (Cloudflare Workers Builds serving the static export as Worker assets;
+  see "Delivery (GitOps)").
 - Normal work happens on short-lived branches (`feat/*`, `fix/*`, `chore/*`).
 - create branch → commit → push branch → PR → CI (`website-ci`) → review → merge.
 - Do not force-push `main`.
@@ -74,6 +75,76 @@ approver, provided **every** one of the following holds:
 
 The moment a second maintainer with merge authority is available, external
 review becomes required again, and this exception ceases to apply.
+
+The exception covers the operator's own PRs only. Agent-authored PRs always
+need the operator's approval (see "Delivery (GitOps)").
+
+## Delivery (GitOps)
+
+Git is the only way a change reaches `alepes.com`. Nothing is deployed from a
+workstation.
+
+**Identity.** Agents act on GitHub as the `alepes-com-agent` GitHub App, never
+with the operator's credentials. Hermes agent profiles load this automatically:
+`gh` and `git` in an agent shell authenticate as the App. The App cannot
+approve its own pull requests.
+
+**Change path.**
+1. Branch.
+2. Push.
+3. Open a PR (App-authored).
+4. The required checks pass.
+5. The operator approves.
+6. Merge.
+
+`main` is protected by the org ruleset `default-branch-two-party`:
+- a PR with 1 approval is required, and the last push must be approved by
+  someone other than its pusher;
+- stale approvals are dismissed;
+- force pushes and deletion are blocked;
+- only org admins (the operator) can bypass it.
+
+**Testing.**
+- `website-ci` (job `validate (bun 1.4)`) runs the canonical validation on
+  every PR and on push to `main`.
+- It is the required status check for `main`.
+- Nothing merges on a red check, and a red check is never waived by
+  narrative.
+
+**Deployment.** The desired state is this repository:
+- `wrangler.jsonc` (Worker `alepes-website`, custom domain `alepes.com`,
+  assets from `./out`);
+- the built static export.
+
+How it reaches production:
+- Cloudflare Workers Builds is linked to this repo through the Cloudflare
+  GitHub App.
+- It pulls `main` and runs the build.
+- It deploys the result, and reports the check `Workers Builds:
+  alepes-website` on the commit.
+- No deploy credential exists in GitHub, and CI does not deploy.
+
+Rules:
+- Do not run `bun run deploy` from a workstation.
+- Do not change Worker settings in the Cloudflare dashboard without making
+  the same change in `wrangler.jsonc` in the same PR.
+
+**`www` redirect: known gap.**
+- `infra/www-redirect/` (Worker `alepes-www-redirect`, `www.alepes.com`) is
+  not linked to Workers Builds; it has been deployed by hand with
+  `bun run deploy:www`.
+- Until the operator links it as a second Workers Builds project (root
+  directory `infra/www-redirect`), changes to it must still land on `main` by
+  PR first.
+- After merge, the operator deploys it and records the commit deployed on
+  the PR.
+- Agents never run `deploy:www`.
+
+**Rollback.**
+- Open a revert PR against `main`.
+- After the operator merges it, Workers Builds deploys the previous content.
+- A Cloudflare dashboard rollback is an emergency-only step. It is closed by
+  the same revert PR, so `main` again matches production.
 
 ## Hard rules
 
